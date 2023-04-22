@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <title>FIT2102 A1 2022</title>
+  <script defer src="main.ts"></script></head>
+  <body>
+    <h1>Frogger</h1>
+    <svg id="svgCanvas" width="880" height="880">
+      <text class="score" x="80" y="100">Score:</text>
+      <text class="score" id="round_score" x="80" y="135">0</text>
+      <text class="score" x="230" y="100">Highest Score:</text>
+      <text class="score" id="highest_score" x="230" y="135">0</text>
+      <text class="score" x="550" y="100">Lives:</text>
+      <text class="score" id="lives" x="550" y="135">3</text>
+      <text class="score" x="700" y="100">Level:</text>
+      <text class="score" id="level" x="700" y="135">1</text>
+
+      <g id="river">
+        <rect width="880" height="240" x="0" y="240" style="fill: rgb(137,200,255)"> </rect>
+      </g>
+
+      <g id="road">
+        <!-- <rect width="880" height="240" x="0" y="400" style="fill: rgb(137,200,255)"> </rect> -->
+        <rect width="880" height="240" x="0" y="560" style="fill: rgb(41,37,37); stroke:white; stroke-width:1px"> </rect>
+      </g>
+
+      <g id="target" style="fill:rgb(253, 238, 220); stroke:rgb(241, 166, 97); stroke-width:2px;" >
+        <rect width="80" height="80" x="80" y="160"> </rect>
+        <g class="hidden" id="target00" transform="translate(80,160)">
+          <path fill="green" d="M5 0 L10 0 L10 15 L15 15 L15 20 L5 20 L5 10 L0 10 L0 5 L5 5 Z" />
+          <path fill="green" d="M5 45 L10 45 L10 30 L15 30 L15 25 L5 25 L5 35 L0 35 L0 40 L5 40 Z" />
+          <path fill="green" d="M50 0 L55 0 L55 5 L60 5 L60 10 L55 10 L55 20 L45 20 L45 15 L50 15 Z" />
+          <path fill="green" d="M50 45 L55 45 L55 40 L60 40 L60 35 L55 35 L55 25 L45 25 L45 30 L50 30 Z" />
+          <path fill="yellow" d="M15 35 L20 35 L20 40 L40 40 L40 35 L45 35 L45 15 L35 15 L35 5 L40 5 L40 0 L20 0 L20 5 L25 5 L25 15 L15 15 Z" />
+          <path fill="green" d="M15 15 L25 15 L25 5 L20 5 L20 10 L15 10 Z" />
+          <path fill="green" d="M45 15 L35 15 L35 5 L40 5 L40 10 L45 10 Z" />
+          <path fill="purple" d="M20 5 L20 10 L15 10 L15 5 Z" />
+          <path fill="purple" d="M45 5 L45 10 L40 10 L40 5 Z" />
+        </g>
+
+        <rect width="80" height="80" x="240" y="160"> </rect>
+        <g class="hidden" id="target01" transform="translate(240,160)">
+          <path fill="green" d="M5 0 L10 0 L10 15 L15 15 L15 20 L5 20 L5 10 L0 10 L0 5 L5 5 Z" />
+          <path fill="green" d="M5 45 L10 45 L10 30 L15 30 L15 25 L5 25 L5 35 L0 35 L0 40 L5 40 Z" />
+          <path fill="green" d="M50 0 L55 0 L55 5 L60 5 L60 10 L55 10 L55 20 L45 20 L45 15 L50 15 Z" />
+          <path fill="green" d="M50 45 L55 45 L55 40 L60 40 L60 35 L55 35 L55 25 L45 25 L45 30 L50 30 Z" />
+          <path fill="yellow" d="M15 35 L20 35 L20 40 L40 40 L40 35 L45 35 L45 15 L35 15 L35 5 L40 5 L40 0 L20 0 L20 5 L25 5 L25 15 L15 15 Z" />
+          <path fill="green" d="M15 15 L25 15 L25 5 L20 5 L20 10 L15 10 Z" />
+          <path fill="green" d="M45 15 L35 15 L35 5 L40 5 L40 10 L45 10 Z" />
+          <path fill="purple" d="M20 5 L20 10 L15 10 L15 5 Z" />
+          <path fill="purple" d="M45 5 L45 10 L40 10 L40 5 Z" />
+        </g>
+
+        <rect width="80" height="80" x="400" y="160"> </rect>
+        <g class="hidden" id="target02" transform="translate(400,160)">
+          <path fill="green" d="M5 0 L10 0 L10 15 L15 15 L15 20 L5 20 L5 10 L0 10 L0 5 L5 5 Z" />
+          <path fill="green" d="M5 45 L10 45 L10 30 L15 30 L15 25 L5 25 L5 35 L0 35 L0 40 L5 40 Z" />
+          <path fill="green" d="M50 0 L55 0 L55 5 L60 5 L60 10 L55 10 L55 20 L45 20 L45 15 L50 15 Z" />
+          <path fill="green" d="M50 45 L55 45 L55 40 L60 40 L60 35 L55 35 L55 25 L45 25 L45 30 L50 30 Z" />
+          <path fill="yellow" d="M15 35 L20 35 L20 40 L40 40 L40 35 L45 35 L45 15 L35 15 L35 5 L40 5 L40 0 L20 0 L20 5 L25 5 L25 15 L15 15 Z" />
+          <path fill="green" d="M15 15 L25 15 L25 5 L20 5 L20 10 L15 10 Z" />
+          <path fill="green" d="M45 15 L35 15 L35 5 L40 5 L40 10 L45 10 Z" />
+          <path fill="purple" d="M20 5 L20 10 L15 10 L15 5 Z" />
+          <path fill="purple" d="M45 5 L45 10 L40 10 L40 5 Z" />
+        </g>
+
+        <rect width="80" height="80" x="560" y="160"> </rect>
+        <g class="hidden" id="target03" transform="translate(560,160)">
+          <path fill="green" d="M5 0 L10 0 L10 15 L15 15 L15 20 L5 20 L5 10 L0 10 L0 5 L5 5 Z" />
+          <path fill="green" d="M5 45 L10 45 L10 30 L15 30 L15 25 L5 25 L5 35 L0 35 L0 40 L5 40 Z" />
+          <path fill="green" d="M50 0 L55 0 L55 5 L60 5 L60 10 L55 10 L55 20 L45 20 L45 15 L50 15 Z" />
+          <path fill="green" d="M50 45 L55 45 L55 40 L60 40 L60 35 L55 35 L55 25 L45 25 L45 30 L50 30 Z" />
+          <path fill="yellow" d="M15 35 L20 35 L20 40 L40 40 L40 35 L45 35 L45 15 L35 15 L35 5 L40 5 L40 0 L20 0 L20 5 L25 5 L25 15 L15 15 Z" />
+          <path fill="green" d="M15 15 L25 15 L25 5 L20 5 L20 10 L15 10 Z" />
+          <path fill="green" d="M45 15 L35 15 L35 5 L40 5 L40 10 L45 10 Z" />
+          <path fill="purple" d="M20 5 L20 10 L15 10 L15 5 Z" />
+          <path fill="purple" d="M45 5 L45 10 L40 10 L40 5 Z" />
+        </g>
+
+        <rect width="80" height="80" x="720" y="160"> </rect>
+        <g class="hidden" id="target04" transform="translate(720,160)">
+          <path fill="green" d="M5 0 L10 0 L10 15 L15 15 L15 20 L5 20 L5 10 L0 10 L0 5 L5 5 Z" />
+          <path fill="green" d="M5 45 L10 45 L10 30 L15 30 L15 25 L5 25 L5 35 L0 35 L0 40 L5 40 Z" />
+          <path fill="green" d="M50 0 L55 0 L55 5 L60 5 L60 10 L55 10 L55 20 L45 20 L45 15 L50 15 Z" />
+          <path fill="green" d="M50 45 L55 45 L55 40 L60 40 L60 35 L55 35 L55 25 L45 25 L45 30 L50 30 Z" />
+          <path fill="yellow" d="M15 35 L20 35 L20 40 L40 40 L40 35 L45 35 L45 15 L35 15 L35 5 L40 5 L40 0 L20 0 L20 5 L25 5 L25 15 L15 15 Z" />
+          <path fill="green" d="M15 15 L25 15 L25 5 L20 5 L20 10 L15 10 Z" />
+          <path fill="green" d="M45 15 L35 15 L35 5 L40 5 L40 10 L45 10 Z" />
+          <path fill="purple" d="M20 5 L20 10 L15 10 L15 5 Z" />
+          <path fill="purple" d="M45 5 L45 10 L40 10 L40 5 Z" />
+        </g>
+      </g>
+
+      <g id="frog" transform="translate(410,810)">
+        <path fill="green" d="M5 0 L10 0 L10 15 L15 15 L15 20 L5 20 L5 10 L0 10 L0 5 L5 5 Z" />
+        <path fill="green" d="M5 45 L10 45 L10 30 L15 30 L15 25 L5 25 L5 35 L0 35 L0 40 L5 40 Z" />
+        <path fill="green" d="M50 0 L55 0 L55 5 L60 5 L60 10 L55 10 L55 20 L45 20 L45 15 L50 15 Z" />
+        <path fill="green" d="M50 45 L55 45 L55 40 L60 40 L60 35 L55 35 L55 25 L45 25 L45 30 L50 30 Z" />
+        <path fill="yellow" d="M15 35 L20 35 L20 40 L40 40 L40 35 L45 35 L45 15 L35 15 L35 5 L40 5 L40 0 L20 0 L20 5 L25 5 L25 15 L15 15 Z" />
+        <path fill="green" d="M15 15 L25 15 L25 5 L20 5 L20 10 L15 10 Z" />
+        <path fill="green" d="M45 15 L35 15 L35 5 L40 5 L40 10 L45 10 Z" />
+        <path fill="purple" d="M20 5 L20 10 L15 10 L15 5 Z" />
+        <path fill="purple" d="M45 5 L45 10 L40 10 L40 5 Z" />
+      </g>
+    </svg>
+    <div id="controls" style="margin-top:-800px; margin-left:900px">
+      <h2>Controls:</h2>
+      <table>
+          <tr><td>Hop to Left</td><td><div id="ArrowLeft" class="key">&#8678;</div></td></tr>
+          <tr><td>Hop to Right</td><td><div id="ArrowRight" class="key">&#8680;</div></td></tr>
+          <tr><td>Hop Upward</td><td><div id="ArrowUp" class="key">&#8679;</div></td></tr>
+          <tr><td>Hop Backward</td><td><div id="ArrowDown" class="key">&#8681;</div></td></tr>
+
+      </table>
+      </div>
+      <div id="instructions" style="margin-top:100px; margin-left:900px">
+        <h2>Instructions:</h2>
+          <p>Frogger can score 1 point by moving forwards</p>
+          <p>Land on the target box (yellow) on the top row to score 100 points</p>
+          <p>Avoid colliding with the cars (pink squres) on the road sections</p>
+          <p>Use the plank (brown rectangle) and crocodile to move across the river</p>
+          <p>Landing on the crocodile mouth will result in frog death (crocodile eats frog!!)</p>
+          <p>Frogger starts with 3 lives, colliding with cars and falling into the river will reduce frogger's lives by 1</p>
+          <p>Consuming the fly (black box) on the river section to get double the points when moving forwards</p>
+          <p>Gameover when lives is 0</p>
+          <p>Restart the game anytime you like by pressing spacebar</p>
+          <p>After landing into all 5 target boxes, difficulty level will increase by 1, the speed of obstacles will increase</p>
+        </table>
+        </div>
+
+  </body>
+</html>
